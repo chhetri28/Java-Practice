@@ -48,7 +48,7 @@ class CustomArrayList<T>{
         "data=" + Arrays.toString(data) +", size="+ size+ "}";
     }
     public static void main(String[] args) {
-        CustomArrayList list=new CustomArrayList();
+        CustomArrayList<Integer> list=new CustomArrayList<>();
         list.add(5);
         list.add(6);
         list.add(7);
