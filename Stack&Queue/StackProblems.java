@@ -61,4 +61,30 @@ public class StackProblems {
         }
         return list;
     }
+    
+    public static List<Integer> NSEL(ArrayList<Integer> elemList) {
+        ArrayList<Integer> list = new ArrayList<>();
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < elemList.size(); i++) {
+            // 1st condition is if st is empty then add -1
+            if (st.size() == 0)
+                list.add(-1);
+            // 2nd condition is to check if stack top element is smaller then curr element
+            else if (st.size() > 0 && st.peek() < elemList.get(i))
+                list.add(st.peek());
+            // 3rd condition remove element from the stack till be get smaller element
+            else if (st.size() > 0 && st.peek() >= elemList.get(i)) {
+                // remove till you find bigger element in stack
+                while (st.size() >= 0 && st.peek() >= elemList.get(i)) {
+                    st.pop();
+                }
+                if (st.size() == 0)
+                    list.add(-1);
+                else
+                    list.add(st.peek());
+            }
+            st.add(elemList.get(i));
+        }
+        return list;
+    }
 }
