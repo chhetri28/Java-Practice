@@ -115,3 +115,16 @@ public class StackProblems {
         return list;
     }
 }
+
+
+
+/*
+ * 
+ * Summary:
+ * 
+ * Problem Stack Type Operator in while loop
+ * next greater right decreasing stackTop <= current
+ * previous greater decreasing stackTop <= current
+ * next smaller increasing stackTop >= current
+ * previous smaller increasing stackTop >= current
+ */
