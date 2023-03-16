@@ -16,25 +16,25 @@ class Pair {
 public class StackProblems {
     public static void main(String[] args) {
         
-        ArrayList<Integer> arr=new ArrayList<>();
-        arr.add(89);
-        arr.add(62);
-        arr.add(70);
-        arr.add(58);
-        arr.add(47);
-        arr.add(47);
-        arr.add(46);
-        arr.add(76);
-        arr.add(100);
-        arr.add(70);
-        List<Integer> ans= NGER(arr);
-        System.out.println(ans);
+        // ArrayList<Integer> arr=new ArrayList<>();
+        // arr.add(89);
+        // arr.add(62);
+        // arr.add(70);
+        // arr.add(58);
+        // arr.add(47);
+        // arr.add(47);
+        // arr.add(46);
+        // arr.add(76);
+        // arr.add(100);
+        // arr.add(70);
+        // List<Integer> ans= NGER(arr);
+        // System.out.println(ans);
          
-        // int price[] = { 10, 4, 5, 90, 120, 80 };
-        // ArrayList<Integer>res=calculateSpan(price);
+        int price[] = { 100 ,80, 60 ,70 ,60 ,75 ,85 };
+        ArrayList<Integer>res=calculateSpan2(price);
         // int temp[]={73,74,75,71,69,72,76,73};
         // ArrayList<Integer> res=dailyTemperatures(temp);
-        // System.out.println(res);
+        System.out.println(res);
     }
     public static List<Integer> NGER(ArrayList<Integer> elemList){
         ArrayList<Integer> list=new ArrayList<>();
@@ -157,6 +157,33 @@ public class StackProblems {
                     l.add(st.peek().Second);
             }
             st.push(new Pair(arr[i], i));
+        }
+        for (int i = 0; i < l.size(); i++) {
+            int ele = i - l.get(i);
+            l.set(i, ele);
+        }
+        return l;
+    }
+    
+    public static ArrayList<Integer> calculateSpan2(int arr[]) {
+        ArrayList<Integer> l = new ArrayList<>();
+        Stack<int[]> st = new Stack<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            if (st.size() == 0) {
+                l.add(-1);
+            } else if (st.size() > 0 && st.peek()[0] > arr[i]) {
+                l.add(st.peek()[1]);
+            } else if (st.size() > 0 && st.peek()[0] <= arr[i]) {
+                while (st.size() > 0 && st.peek()[0] <= arr[i]) {
+                    st.pop();
+                }
+                if (st.size() == 0)
+                    l.add(-1);
+                else
+                    l.add(st.peek()[1]);
+            }
+            st.push(new int[]{arr[i],i});
         }
         for (int i = 0; i < l.size(); i++) {
             int ele = i - l.get(i);
