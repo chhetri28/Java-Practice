@@ -3,15 +3,38 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+class Pair {
+    int First;
+    int Second;
+
+    public Pair(int first, int second) {
+        First = first;
+        Second = second;
+    }
+
+}
 public class StackProblems {
     public static void main(String[] args) {
+        
         ArrayList<Integer> arr=new ArrayList<>();
-        arr.add(1);
-        arr.add(3);
-        arr.add(2);
-        arr.add(4);
-        List<Integer> ans= NGEL(arr);
+        arr.add(89);
+        arr.add(62);
+        arr.add(70);
+        arr.add(58);
+        arr.add(47);
+        arr.add(47);
+        arr.add(46);
+        arr.add(76);
+        arr.add(100);
+        arr.add(70);
+        List<Integer> ans= NGER(arr);
         System.out.println(ans);
+         
+        // int price[] = { 10, 4, 5, 90, 120, 80 };
+        // ArrayList<Integer>res=calculateSpan(price);
+        // int temp[]={73,74,75,71,69,72,76,73};
+        // ArrayList<Integer> res=dailyTemperatures(temp);
+        // System.out.println(res);
     }
     public static List<Integer> NGER(ArrayList<Integer> elemList){
         ArrayList<Integer> list=new ArrayList<>();
@@ -24,7 +47,7 @@ public class StackProblems {
             //3rd condition remove element from the stack till be get bigger element
             else if(st.size()>0 && st.peek()<elemList.get(i)){
                 //remove till you find bigger element in stack
-                while(st.size()>= 0 && st.peek()<=elemList.get(i)){
+                while(st.size()> 0 && st.peek()<=elemList.get(i)){
                     st.pop();
                 }
                 if(st.size()==0)list.add(-1);
@@ -113,6 +136,59 @@ public class StackProblems {
         }
         Collections.reverse(list);
         return list;
+    }
+    
+    public static ArrayList<Integer> calculateSpan(int arr[]) {
+        ArrayList<Integer> l = new ArrayList<>();
+        Stack<Pair> st = new Stack<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            if (st.size() == 0) {
+                l.add(-1);
+            } else if (st.size() > 0 && st.peek().First > arr[i]) {
+                l.add(st.peek().Second);
+            } else if (st.size() > 0 && st.peek().First <= arr[i]) {
+                while (st.size() > 0 && st.peek().First <= arr[i]) {
+                    st.pop();
+                }
+                if (st.size() == 0)
+                    l.add(-1);
+                else
+                    l.add(st.peek().Second);
+            }
+            st.push(new Pair(arr[i], i));
+        }
+        for (int i = 0; i < l.size(); i++) {
+            int ele = i - l.get(i);
+            l.set(i, ele);
+        }
+        return l;
+    }
+        public static ArrayList<Integer> dailyTemperatures(int[] arr) {
+        ArrayList<Integer> l = new ArrayList<>();
+        Stack<Pair> st = new Stack<>();
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (st.size() == 0) {
+                l.add(0);
+            } else if (st.size() > 0 && st.peek().First > arr[i]) {
+                l.add(st.peek().Second);
+            } else if (st.size() > 0 && st.peek().First < arr[i]) {
+                while (st.size() > 0 && st.peek().First < arr[i]) {
+                    st.pop();
+                }
+                if (st.size() == 0)
+                    l.add(-1);
+                else
+                    l.add(st.peek().Second);
+            }
+            st.push(new Pair(arr[i], i));
+        }
+        for (int i = 0; i < l.size(); i++) {
+            int ele = Math.abs(i - l.get(i));
+            l.set(i, ele);
+        }
+        return l;
     }
 }
 
