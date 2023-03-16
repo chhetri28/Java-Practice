@@ -164,32 +164,28 @@ public class StackProblems {
         }
         return l;
     }
-        public static ArrayList<Integer> dailyTemperatures(int[] arr) {
-        ArrayList<Integer> l = new ArrayList<>();
-        Stack<Pair> st = new Stack<>();
-
-        for (int i = arr.length - 1; i >= 0; i--) {
-            if (st.size() == 0) {
-                l.add(0);
-            } else if (st.size() > 0 && st.peek().First > arr[i]) {
-                l.add(st.peek().Second);
-            } else if (st.size() > 0 && st.peek().First < arr[i]) {
-                while (st.size() > 0 && st.peek().First < arr[i]) {
-                    st.pop();
-                }
-                if (st.size() == 0)
-                    l.add(-1);
-                else
-                    l.add(st.peek().Second);
-            }
-            st.push(new Pair(arr[i], i));
-        }
-        for (int i = 0; i < l.size(); i++) {
-            int ele = Math.abs(i - l.get(i));
-            l.set(i, ele);
-        }
-        return l;
+    public int[] dailyTemperatures(int[] arr) {
+    Stack<Integer> st=new Stack<>();
+    ArrayList<Integer>list=new ArrayList<Integer>();
+    int n=arr.length;
+    for(int i=n-1;i>=0;i--){
+      while(st.size()> 0 && arr[st.peek()]<=arr[i]){
+        st.pop();
+      }
+      if(st.size()==0) list.add(0);
+      else{
+       list.add(st.peek()-i);
+      }
+      st.add(i);
     }
+    Collections.reverse(list);
+    int [] res=new int[list.size()];
+    for(int i=0;i<list.size();i++){
+      res[i]=list.get(i);
+    }
+    return res;
+  }
+        
 }
 
 
